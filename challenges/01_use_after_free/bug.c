@@ -120,14 +120,13 @@ static void screen_dispatch(Screen *s, int code) {
 static void screen_render(Screen *s) {
     for (int i = 0; i < s->count; i++) {
         Widget *w = s->items[i];
-        w->vtbl->render(w);      
+        w->vtbl->render(w);
     }
 }
 
 static void dialog_on_event(Widget *self, int code) {
     if (code == 1) {
         self->closed = 1;
-        widget_destroy(self);   
     }
 }
 
