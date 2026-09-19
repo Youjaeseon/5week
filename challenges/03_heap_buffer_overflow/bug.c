@@ -39,7 +39,7 @@
 #include <stdlib.h>
 
 typedef struct {
-    int   *data;
+    int *data;
     /* [Thinking Point]
      * 개수/크기를 담는 len, cap 을 왜 int 가 아니라 size_t 로 선언할까?
      *   tip 1. size_t 는 "이 플랫폼에서 표현 가능한 가장 큰 객체 크기"를 담도록 만든
@@ -65,7 +65,7 @@ static void list_ensure(IntList *l, size_t need) {
     size_t newcap = l->cap ? l->cap * 2 : 8;
     while (newcap < need) newcap *= 2;
 
-    int *p = realloc(l->data, l->cap * sizeof(int));
+    int *p = realloc(l->data, newcap * sizeof(int));
     if (!p) { perror("realloc"); free(l->data); exit(1); }
 
     l->data = p;
