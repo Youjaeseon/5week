@@ -127,7 +127,7 @@ static void screen_render(Screen *s) {
 
         if(w==NULL)
             continue;
-            
+
         w->vtbl->render(w);
     }
 }
@@ -178,6 +178,11 @@ int main(void) {
     screen_render(&s);           
 
     free(status);
-    for (int i = 0; i < s.count; i++) free(s.items[i]);
+
+    for (int i = 0; i < s.count; i++) {
+        if(s.items[i] != NULL)
+        widget_destroy(s.items[i]);
+    }
+
     return 0;
 }
