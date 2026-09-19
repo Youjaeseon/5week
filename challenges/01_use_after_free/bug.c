@@ -124,6 +124,10 @@ static void screen_dispatch(Screen *s, int code) {
 static void screen_render(Screen *s) {
     for (int i = 0; i < s->count; i++) {
         Widget *w = s->items[i];
+
+        if(w==NULL)
+            continue;
+            
         w->vtbl->render(w);
     }
 }
