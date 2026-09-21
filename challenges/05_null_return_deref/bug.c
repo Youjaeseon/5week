@@ -68,7 +68,7 @@ static void expand(const Config *c, const char *tmpl, char *out, size_t outcap) 
             const char *v = cfg_get(c, key);
             
             if (v==NULL)
-                return;
+                v ="";
                 
             size_t vl = strlen(v);                 
             if (o + vl < outcap) { memcpy(out + o, v, vl); o += vl; }
