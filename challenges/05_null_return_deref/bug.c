@@ -7,6 +7,7 @@
  *
  * [기대 동작]
  *   템플릿의 모든 ${key} 를 설정값으로 치환한 최종 문자열을 출력.
+
  *
  * [증상]
  *   cfg_get() 은 키가 없으면 NULL 을 돌려준다. expand() 는 이 반환값을 검사하지 않고
@@ -64,7 +65,11 @@ static void expand(const Config *c, const char *tmpl, char *out, size_t outcap) 
             memcpy(key, p + 2, kl);
             key[kl] = '\0';
 
-            const char *v = cfg_get(c, key);      
+            const char *v = cfg_get(c, key);
+            
+            if (v==NULL)
+                return;
+                
             size_t vl = strlen(v);                 
             if (o + vl < outcap) { memcpy(out + o, v, vl); o += vl; }
             p = end + 1;
@@ -77,6 +82,7 @@ static void expand(const Config *c, const char *tmpl, char *out, size_t outcap) 
 }
 
 int main(void) {
+    // 메인 참조 x 함수 수정 ?
     /* [Thinking Point]
      * "{ .n = 0 }" 은 멤버 이름을 콕 집어 초기화하는 '지정 초기화자(designated initializer)'다.
      *   tip 1. 초기화자에 하나라도 값을 주면, 명시하지 않은 나머지 멤버는 전부 0 으로
