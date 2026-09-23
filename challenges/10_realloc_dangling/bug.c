@@ -40,6 +40,7 @@
 #include <string.h>
 
 #define MAX_UNDO 8
+
 typedef struct {
     int   *data;
     size_t len, cap;
@@ -61,7 +62,15 @@ static void eb_init(EditBuffer *e) {
 }
 
 static void eb_snapshot(EditBuffer *e) {
-    if (e->undo_n < MAX_UNDO) e->undo[e->undo_n++] = e->data;
+    if (e->undo_n < MAX_UNDO) 
+        return;
+    
+    size_t count = e->len > 0?e->len : 1;
+    int *copy = malloc(count * sizeof *copy);
+    if(!copy){
+        perror("malloc");
+        exit(1);
+    }
 }
 
 static void eb_grow(EditBuffer *e, size_t need) {
