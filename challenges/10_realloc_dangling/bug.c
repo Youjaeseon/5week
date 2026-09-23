@@ -71,6 +71,10 @@ static void eb_snapshot(EditBuffer *e) {
         perror("malloc");
         exit(1);
     }
+
+    memcpy(copy, e->data, e->len * sizeof *copy);
+    e->undo[e->undo_n++] = copy;
+
 }
 
 static void eb_grow(EditBuffer *e, size_t need) {
