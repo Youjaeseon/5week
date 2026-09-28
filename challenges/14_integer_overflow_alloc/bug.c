@@ -1,4 +1,4 @@
-/*
+ /*
  * Challenge 14 — Integer Overflow → 과소할당 → 오버플로 (심화: 이미지 버퍼)
  *
  * [시나리오]
@@ -49,7 +49,7 @@ typedef struct {
     int width;
     int height;
     int channels;
-    int nbytes;              
+    size_t nbytes;              
     unsigned char *px;
 } Image;
 
