@@ -68,8 +68,7 @@ static Image *image_new(int width, int height, int channels) {
 
 static void image_fill(Image *img, unsigned char value) {
 
-    size_t total = (size_t)img->width * (size_t)img->height * (size_t)img->channels;
-    for (size_t i = 0; i < total; i++) {
+    for (size_t i = 0; i < img->nbytes; i++) {
         img->px[i] = value;                     
     }
 }
@@ -87,7 +86,7 @@ int main(void) {
      *               일 때가 3(RGB)일 때보다 오버플로가 더 쉽게 터질까?
      *               (해결 힌트: 크기 계산을 size_t 로 승격하고, 곱셈 오버플로를 검사한다) */
     Image *img = image_new(65536, 65536, 4);
-    printf("allocated nbytes(int)=%d for %dx%d x%d\n",
+    printf("allocated nbytes(int)=%z for %dx%d x%d\n",
            img->nbytes, img->width, img->height, img->channels);
 
     image_fill(img, 0xFF);                       
