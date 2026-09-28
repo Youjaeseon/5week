@@ -94,7 +94,7 @@ static void on_message(Msg *m) {
 
 static void broker_shutdown(Broker *b) {
     for (int i = 0; i < b->log_n; i++) {
-        msg_free(b->log[i]);             
+        b->log[i]=NULL;            
     }
     b->log_n = 0;
 }
